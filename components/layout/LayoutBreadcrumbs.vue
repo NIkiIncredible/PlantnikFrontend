@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { breadcrumbs } = useBreadcrumbs();
+const {breadcrumbs} = useBreadcrumbs();
 const localePath = useLocalePath();
-const { formatLink } = useInternationalization(localePath);
+const {formatLink} = useInternationalization(localePath);
 </script>
 <template>
   <div class="container m-auto my-5">
@@ -12,17 +12,18 @@ const { formatLink } = useInternationalization(localePath);
             Home
           </BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
+        <BreadcrumbSeparator/>
         <template v-for="(breadcrumb, index) in breadcrumbs" :key="breadcrumb.path">
-          <BreadcrumbItem >
+          <BreadcrumbItem v-if="breadcrumb.type == 'page'">
             <BreadcrumbLink :href="formatLink(breadcrumb.path)">
-              {{breadcrumb.name}}
+              {{ breadcrumb.name }}
             </BreadcrumbLink>
           </BreadcrumbItem>
-
+          <BreadcrumbItem v-else>
+            {{ breadcrumb.name }}
+          </BreadcrumbItem>
           <BreadcrumbSeparator v-if="index !== breadcrumbs.length - 1"/>
         </template>
-
       </BreadcrumbList>
     </Breadcrumb>
   </div>

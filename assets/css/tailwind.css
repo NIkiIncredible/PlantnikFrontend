@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@source inline("{p,m}{y,x,t,b,l,r,}-{1..20}, grid-cols-{1..12}");
+/*@source inline("{p,m}{y,x,t,b,l,r,}-{1..20}, grid-cols-{1..12}");*/
 
 
 @custom-variant dark (&:is(.dark *));
@@ -189,3 +189,24 @@
   --font-sans: 'Outfit', sans-serif;
 }
 
+@utility loader {
+  @apply bg-gray-200 text-transparent! rounded-lg animate-pulse;
+}
+
+.loading {
+  .product-box-img {
+    @apply loader;
+  }
+  .product-card-title {
+    @apply loader;
+  }
+  .product-card-description {
+    @apply loader;
+  }
+  .product-box-product-price {
+    @apply loader;
+  }
+  Button {
+    @apply loader;
+  }
+}

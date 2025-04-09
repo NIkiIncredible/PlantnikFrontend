@@ -189,10 +189,8 @@ const description = computed(() => {
           <img
               ref="imageElement"
               loading="lazy"
-
               :src="srcPath"
               :srcset="srcSet"
-
               :alt="getProductName({ product }) || ''"
               class="aspect-square object-cover w-full h-full rounded-t-md"
               data-testid="product-box-img"

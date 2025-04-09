@@ -1,28 +1,3 @@
-<style scoped>
-@reference "~/assets/css/tailwind.css";
-@utility loader {
-  @apply bg-gray-200 text-transparent! rounded-lg animate-pulse;
-}
-
-.loading {
-  .product-box-img {
-    @apply loader;
-  }
-  .product-card-title {
-    @apply loader;
-  }
-  .product-card-description {
-    @apply loader;
-  }
-  .product-box-product-price {
-    @apply loader;
-  }
-  Button {
-    @apply loader;
-  }
-}
-</style>
-
 <template>
   <Card class="product-card relative w-full transition duration-200 hover:shadow-lg loading">
     <CardHeader>
