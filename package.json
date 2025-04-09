@@ -1,0 +1,59 @@
+{
+  "name": "vue-demo-store",
+  "version": "1.8.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt prepare && nuxt dev",
+    "build": "nuxt prepare && nuxt build",
+    "start": "nuxt start",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write . && pnpm run typecheck",
+    "typecheck": "nuxt prepare && nuxi typecheck",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "analyze": "nuxt analyze",
+    "generate-types": "shopware-api-gen generate --apiType=store"
+  },
+  "dependencies": {
+    "@shopware/api-client": "canary",
+    "@shopware/cms-base-layer": "canary",
+    "@shopware/composables": "canary",
+    "@shopware/helpers": "canary",
+    "@shopware/nuxt-module": "canary",
+    "@tailwindcss/vite": "^4.1.2",
+    "@unocss/nuxt": "66.0.0",
+    "@vuelidate/core": "2.0.3",
+    "@vuelidate/validators": "2.0.4",
+    "@vueuse/core": "^13.0.0",
+    "@vueuse/nuxt": "13.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "defu": "6.1.4",
+    "lucide-vue-next": "^0.487.0",
+    "reka-ui": "^2.2.0",
+    "requrl": "3.0.2",
+    "sitemap": "8.0.0",
+    "swiper": "^11.2.6",
+    "tailwind-merge": "^3.1.0",
+    "tailwindcss": "^4.1.2",
+    "tw-animate-css": "^1.2.5",
+    "vue": "3.5.13"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@iconify-json/carbon": "1.2.8",
+    "@nuxtjs/color-mode": "^3.5.2",
+    "@nuxtjs/i18n": "9.3.1",
+    "@shopware/api-gen": "canary",
+    "nuxt": "3.16.2",
+    "nuxt-schema-org": "5.0.4",
+    "nuxt-swiper": "2.0.0",
+    "shadcn-nuxt": "2.0.0",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": "^18.17.x || ^20.x || ^22.x"
+  },
+  "packageManager": "pnpm@8.15.0+sha1.97e9ea18c26f67eaa5b0b394f1cfbcdc65b1b02d"
+}
