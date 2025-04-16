@@ -6,10 +6,10 @@
 </template>
 
 <script setup lang=ts>
-import type {components} from "~/api-types/storeApiTypes";
-
+//import type {components} from "~/api-types/storeApiTypes";
+//Types components["schemas"]["PropertyGroupOption"]
 const props = defineProps<{
-  option: components["schemas"]["PropertyGroupOption"],
+  option: any,
   isActive: boolean,
 }>()
 </script>

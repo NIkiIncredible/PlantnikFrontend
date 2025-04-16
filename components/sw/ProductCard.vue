@@ -175,7 +175,7 @@ const description = computed(() => {
   <Card class="product-card relative w-full transition duration-200 hover:shadow-lg min-w-48">
     <div class="absolute top-2 left-2 z-10" v-if="product.calculatedCheapestPrice?.listPrice">
       <Badge variant="destructive">
-        -{{ product.calculatedCheapestPrice.listPrice?.percentage }}
+        {{ Math.round(product.calculatedCheapestPrice.listPrice?.percentage) }}
         <Percent/>
       </Badge>
     </div>
@@ -219,6 +219,29 @@ const description = computed(() => {
         <CardTitle class="product-card-title h-8 text-ellipsis">{{ getProductName({product}) }}</CardTitle>
       </NuxtLinkLocale>
 
+      <!-- TODO: Varianten anzeige, noch zu überarbeiten -->
+      <div class="h-8 my-2" v-if="product?.options?.length !== 0 && false">
+        <template v-if="product?.displayGroup !== null">
+          {{product?.displayGroup}}
+          {{product.options}}
+          {{product.options.filter(value => value.id == product.displayGroup)}}
+          <template v-for="option in product?.options" :key="option.id">
+            <p v-if="option.id == product.displayGroup">
+              <span class="font-bold">{{ option.name }} </span>
+            </p>
+          </template>
+        </template>
+        <!--<p
+            v-for="option in product?.options"
+            :key="option.id"
+            class="items-center line-clamp-2 rounded-md text-xs font-medium text-gray-600 mt-3"
+        >
+          {{ option.group.name }}:
+          <span class="font-bold">{{ option.name }} </span>
+        </p>-->
+      </div>
+      <!-- end -->
+
       <CardDescription class="product-card-description h-16 text-wrap text-ellipsis overflow-hidden truncate">{{description}}</CardDescription>
     </CardContent>
     <CardFooter class="flex items-center justify-between">
@@ -234,7 +257,7 @@ const description = computed(() => {
               data-testid="add-to-cart-button"
               :disabled="!product.available"
               @click="addToCartProxy">
-        <Plus/>
+        <Plus class="hidden 2xl:block"/>
         {{ translations.product.addToCart }}
         <div v-if="isInCart" class="flex">
           <ShoppingBasket></ShoppingBasket>
@@ -247,19 +270,5 @@ const description = computed(() => {
         <span data-testid="product-box-product-show-details">Details</span>
       </Button>
     </CardFooter>
-
-
-    <!-- TODO: ??? -->
-    <div class="h-8 mx-4 my-2" v-if="false">
-      <p
-          v-for="option in product?.options"
-          :key="option.id"
-          class="items-center line-clamp-2 rounded-md text-xs font-medium text-gray-600 mt-3"
-      >
-        {{ option.group.name }}:
-        <span class="font-bold">{{ option.name }} </span>
-      </p>
-    </div>
-    <!-- end -->
   </Card>
 </template>

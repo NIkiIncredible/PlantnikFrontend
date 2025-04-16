@@ -59,29 +59,51 @@
 
           <!-- Cart -->
           <div class="flex navigation-actions-item">
-            <button
-                class="-m-2 p-2 flex items-center gap-1 hover:cursor-pointer group"
-                aria-label="Mini cart"
-                data-testid="cart-button"
-            >
-              <div class="h-9 w-9 bg-primary text-primary-foreground rounded-full flex items-center justify-center
-              group-hover:shadow-md shadow-primary/50 transition-shadow duration-300">
-                <ShoppingBasket></ShoppingBasket>
-              </div>
+            <Sheet>
+              <SheetTrigger as-child>
+                <button
+                    class="-m-2 p-2 flex items-center gap-1 hover:cursor-pointer group"
+                    aria-label="Mini cart"
+                    data-testid="cart-button"
+                >
+                  <div class="h-9 w-9 bg-primary text-primary-foreground rounded-full flex items-center justify-center
+                  group-hover:shadow-md shadow-primary/50 transition-shadow duration-300">
+                    <ShoppingBasket></ShoppingBasket>
+                  </div>
 
-              <span class="font-medium text-base">
-                {{ getFormattedPrice(subtotal) }}
-              </span>
-              <span
-                  v-if="count > 0"
-                  class="text-3 font-sm text-white absolute bg-primary-600 rounded-full min-w-5 min-h-5 top-0 right-0 leading-5"
-              >
-                {{ count || "" }}
-              </span>
-              <span class="sr-only"
-              >{{ $t("cart.itemsInCart") }}, {{ $t("cart.viewCart") }}</span
-              >
-            </button>
+                  <span class="font-medium text-base">
+                    {{ getFormattedPrice(subtotal) }}
+                  </span>
+                  <span
+                      v-if="count > 0"
+                      class="text-3 font-sm text-white absolute bg-primary-600 rounded-full min-w-5 min-h-5 top-0 right-0 leading-5"
+                  >
+                    {{ count || "" }}
+                  </span>
+                  <span class="sr-only"
+                  >{{ $t("cart.itemsInCart") }}, {{ $t("cart.viewCart") }}</span
+                  >
+                </button>
+              </SheetTrigger>
+
+              <SheetContent>
+                <SheetHeader>
+                  <!-- TODO: change to translation -->
+                  <SheetTitle>Warenkorb</SheetTitle>
+                  <SheetDescription>
+                    Make changes to your profile here. Click save when you're done.
+                  </SheetDescription>
+                </SheetHeader>
+
+                <SheetFooter>
+                  <SheetClose as-child>
+                    <Button class="hover:cursor-pointer" size="lg" type="submit">
+                      <ShoppingBag class="group-hover:animate-bounce"/> Zur Kasse
+                    </Button>
+                  </SheetClose>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
           </div>
 
         </div>
@@ -97,7 +119,17 @@
 </template>
 
 <script setup lang=ts>
-import {Heart, ShoppingBasket, User} from "lucide-vue-next";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
+import {Heart, ShoppingBasket, User, ShoppingBag} from "lucide-vue-next";
 
 const {count} = useCart();
 const {count: wishlistCount} = useWishlist();
