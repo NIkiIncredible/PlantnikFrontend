@@ -14,8 +14,8 @@ const mobileBehavior = computed(() => props.content.mobileBehavior);
 </script>
 
 <template>
-  <div class="cms-section-sidebar grid grid-cols-12 md:grid">
-    <div class="col-span-12 md:col-span-7 lg:col-span-9 order-1 md:order-2">
+  <div class="cms-section-sidebar flex flex-col lg:flex-row gap-0 lg:gap-10">
+    <div class="lg:flex-8/12 xl:flex-9/12 order-2">
       <CmsGenericBlock
           v-for="cmsBlock in mainBlocks"
           :key="cmsBlock.id"
@@ -25,7 +25,7 @@ const mobileBehavior = computed(() => props.content.mobileBehavior);
     </div>
     <div
         :class="{
-        'align-top col-span-12 md:col-span-4 lg:col-span-3 order-2 md:order-1':
+        'align-top col-span-12 lg:flex-4/12 xl:flex-3/12 order-1':
           mobileBehavior !== 'hidden',
         'hidden md:block': mobileBehavior === 'hidden',
       }"
@@ -33,7 +33,7 @@ const mobileBehavior = computed(() => props.content.mobileBehavior);
       <CmsGenericBlock
           v-for="cmsBlock in sidebarBlocks"
           :key="cmsBlock.id"
-          class="overflow-auto"
+          class="lg:sticky top-5"
           :content="cmsBlock"
       />
     </div>

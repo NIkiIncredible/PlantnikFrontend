@@ -5,6 +5,8 @@
   "close": "Schließen",
   "goBackHome": "Zurück zur Startseite",
   "returnToHomepage": "Zurück zur Startseite",
+  "next": "Weiter",
+  "previous": "Zurück",
   "pageNotFound": {
     "header": "Seite nicht gefunden",
     "text": "Es tut uns leid, die von Ihnen gesuchte Seite konnte nicht gefunden werden. Sie existiert möglicherweise nicht mehr oder wurde verschoben."

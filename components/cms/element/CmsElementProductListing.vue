@@ -153,7 +153,7 @@ compareRouteQueryWithInitialListing();
 <template>
   <div class="cms-element-product-listing">
     <div>
-      <div class="grid productListElement gap-5">
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 productListElement gap-5">
         <SwProductCard
             v-for="product in getElements"
             :key="product.id"
@@ -225,7 +225,7 @@ compareRouteQueryWithInitialListing();
                     id="limit"
                     v-model="limit"
                     name="limitchoices"
-                    class="inline appearance-none bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                    class="inline appearance-none border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                     data-testid="listing-pagination-limit-select"
                     @change="changeLimit"
                 >
@@ -267,8 +267,3 @@ compareRouteQueryWithInitialListing();
 
   </div>
 </template>
-<style>
-.productListElement {
-  @apply grid-cols-3;
-}
-</style>

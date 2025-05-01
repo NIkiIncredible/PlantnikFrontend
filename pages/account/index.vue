@@ -48,7 +48,7 @@ const updateNewsletterStatus = async () => {
       pushSuccess(t("newsletter.messages.newsletterUnsubscribed"));
     }
   } catch (error) {
-    console.log("error", error);
+    //console.log("error", error);
     pushError(t("messages.error"));
   } finally {
     getNewsletterStatus().then(() => {

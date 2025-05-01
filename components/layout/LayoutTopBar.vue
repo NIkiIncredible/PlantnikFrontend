@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-accent">
+  <div class="bg-card">
     <div class="top-bar flex justify-between">
       <div class="top-bar-section-left flex gap-6">
         <div class="top-bar-info-item inline-flex items-center gap-1.5" v-for="item in topbarItems">
@@ -32,7 +32,7 @@ const topbarItems = ref([
 </script>
 
 <style scoped>
-@reference "~/assets/css/tailwind.css";
+@import "@/assets/css/tailwind.css";
 
 .top-bar {
   @apply container m-auto py-3;

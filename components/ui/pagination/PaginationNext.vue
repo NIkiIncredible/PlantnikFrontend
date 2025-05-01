@@ -9,6 +9,7 @@ import { PaginationNext, useForwardProps } from 'reka-ui'
 import {defu} from "defu";
 import {useCmsTranslations} from "@shopware/composables";
 
+const { t } = useI18n();
 const props = withDefaults(defineProps<PaginationNextProps & {
   size?: ButtonVariants['size']
   class?: HTMLAttributes['class']
@@ -18,20 +19,6 @@ const props = withDefaults(defineProps<PaginationNextProps & {
 
 const delegatedProps = reactiveOmit(props, 'class', 'size')
 const forwarded = useForwardProps(delegatedProps)
-
-type Translations = {
-  listing: {
-    next: string;
-  };
-};
-
-let translations: Translations = {
-  listing: {
-    next: "Next",
-  },
-};
-
-translations = defu(useCmsTranslations(), translations) as Translations;
 </script>
 
 <template>
@@ -41,7 +28,7 @@ translations = defu(useCmsTranslations(), translations) as Translations;
     v-bind="forwarded"
   >
     <slot>
-      <span class="hidden sm:block">{{$t(translations.listing.next)}}</span>
+      <span class="hidden sm:block">{{t('next')}}</span>
       <ChevronRightIcon />
     </slot>
   </PaginationNext>

@@ -19,7 +19,8 @@ useHead({
       type: 'image/png',
       href: '/assets/images/logo/favicon.png'
     }
-  ]
+  ],
+  titleTemplate: "%s | Plantnik",
 });
 
 
@@ -135,7 +136,7 @@ onMounted(() => {
   </NuxtLayout>
 
   <dev-only>
-    <div class="bg-red-400 text-center sticky bottom-0 w-full max-w-screen p-5 font-semibold flex justify-between z-50">
+    <div class="bg-red-400 text-center sticky bottom-0 w-full max-w-screen p-1 font-semibold flex justify-between z-50">
       <template v-for="n in 3">
         <span>
           DEVELOPMENT ENVIRONMENT!!!
@@ -146,12 +147,7 @@ onMounted(() => {
 </template>
 
 <style>
-@reference "~/assets/css/tailwind.css";
-
-h2 {
-  @apply text-4xl py-4;
-}
-
+/* TODO: Remove
 select {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIGZpbGw9J25vbmUnIHZpZXdCb3g9JzAgMCAyMCAyMCc+PHBhdGggc3Ryb2tlPScjNmI3MjgwJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIHN0cm9rZS13aWR0aD0nMS41JyBkPSdNNiA4bDQgNCA0LTQnLz48L3N2Zz4=");
   background-position: right 0.5rem center;
@@ -159,4 +155,5 @@ select {
   background-size: 1.5em 1.5em;
   appearance: none;
 }
+*/
 </style>

@@ -9,17 +9,19 @@ import {
   getProductName,
   getProductRoute,
   getSmallestThumbnailUrl,
-  getSrcSetForMedia, getTranslatedProperty
+  getSrcSetForMedia
 } from "@shopware/helpers";
 import {useElementSize} from "@vueuse/core";
 import {defu} from "defu";
 import {computed, ref, toRefs, useTemplateRef} from "vue";
 import {
+  sortOptions,
   useAddToCart,
   useCartErrorParamsResolver,
   useCartNotification,
   useNotifications,
-  useProductWishlist, useSrcSetSizes,
+  useProductWishlist,
+  useSrcSetSizes,
   useUrlResolver,
 } from "#imports";
 import type {Schemas} from "#shopware";
@@ -143,6 +145,8 @@ const addToCartProxy = async () => {
 };
 
 const fromPrice = getProductFromPrice(props.product);
+const {displayFromVariants, displayFrom} = useProductPrice(product);
+
 const {getUrlPrefix} = useUrlResolver();
 
 const imageElement = useTemplateRef("imageElement");
@@ -215,34 +219,30 @@ const description = computed(() => {
       </div>
     </CardHeader>
     <CardContent class="pt-5">
-      <NuxtLinkLocale :to="buildUrlPrefix(getProductRoute(product), getUrlPrefix())">
-        <CardTitle class="product-card-title h-8 text-ellipsis">{{ getProductName({product}) }}</CardTitle>
-      </NuxtLinkLocale>
+      <div>
+        <NuxtLinkLocale :to="buildUrlPrefix(getProductRoute(product), getUrlPrefix())">
+          <CardTitle class="product-card-title text-ellipsis h-5">{{ getProductName({product}) }}</CardTitle>
+        </NuxtLinkLocale>
 
-      <!-- TODO: Varianten anzeige, noch zu überarbeiten -->
-      <div class="h-8 my-2" v-if="product?.options?.length !== 0 && false">
-        <template v-if="product?.displayGroup !== null">
-          {{product?.displayGroup}}
-          {{product.options}}
-          {{product.options.filter(value => value.id == product.displayGroup)}}
-          <template v-for="option in product?.options" :key="option.id">
-            <p v-if="option.id == product.displayGroup">
-              <span class="font-bold">{{ option.name }} </span>
-            </p>
+        <div class="mb-3 h-5">
+          <template v-if="product?.options?.length !== 0">
+            <!--          {{product?.displayGroup}}-->
+            <!--          {{product.options}}-->
+            <!--          {{product.options.filter(value => value.id == product.displayGroup)}}-->
+            <div class="text-muted-foreground text-sm flex items-baseline gap-1">
+              <template v-for="(option, index) in sortOptions(product?.options)"
+                        :key="option.id">
+                <span>{{ option.name }} </span>
+                <span v-if="index !== (product.options?.length ?? 0) - 1">•</span>
+              </template>
+            </div>
           </template>
-        </template>
-        <!--<p
-            v-for="option in product?.options"
-            :key="option.id"
-            class="items-center line-clamp-2 rounded-md text-xs font-medium text-gray-600 mt-3"
-        >
-          {{ option.group.name }}:
-          <span class="font-bold">{{ option.name }} </span>
-        </p>-->
+        </div>
       </div>
-      <!-- end -->
 
-      <CardDescription class="product-card-description h-16 text-wrap text-ellipsis overflow-hidden truncate">{{description}}</CardDescription>
+      <CardDescription class="product-card-description h-16 text-wrap text-ellipsis line-clamp-3">
+        {{ description }}
+      </CardDescription>
     </CardContent>
     <CardFooter class="flex items-center justify-between">
       <div class="product-box-product-price">
@@ -252,23 +252,23 @@ const description = computed(() => {
             data-testid="product-box-product-price"
         />
       </div>
-      <Button v-if="!fromPrice"
+      <Button v-if="!displayFrom && !displayFromVariants"
               class="hover:cursor-pointer disabled:cursor-not-allowed"
               data-testid="add-to-cart-button"
               :disabled="!product.available"
               @click="addToCartProxy">
-        <Plus class="hidden 2xl:block"/>
-        {{ translations.product.addToCart }}
-        <div v-if="isInCart" class="flex">
-          <ShoppingBasket></ShoppingBasket>
-          {{ count }}
+        <div class="hidden 2xl:block">
+          <Plus v-if="!isInCart" />
+          <ShoppingBasket v-else></ShoppingBasket>
         </div>
+        {{ translations.product.addToCart }}
+
       </Button>
-      <Button v-else
-              class="hover:cursor-pointer disabled:cursor-not-allowed bg-black hover:bg-black/90"
-              :to="buildUrlPrefix(getProductRoute(product), getUrlPrefix())">
-        <span data-testid="product-box-product-show-details">Details</span>
-      </Button>
+      <NuxtLinkLocale v-else :to="buildUrlPrefix(getProductRoute(product), getUrlPrefix())">
+        <Button class="hover:cursor-pointer disabled:cursor-not-allowed bg-black hover:bg-black/90 text-white">
+          <span data-testid="product-box-product-show-details">Details</span>
+        </Button>
+      </NuxtLinkLocale>
     </CardFooter>
   </Card>
 </template>

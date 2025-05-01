@@ -10,6 +10,7 @@ import newsletter from "./newsletter.json";
 import product from "./product.json";
 import recoveryPassword from "./recoveryPassword.json";
 import validations from "./validations.json";
+import custom from "./custom.json";
 
 export default {
   ...account,
@@ -24,4 +25,5 @@ export default {
   ...newsletter,
   ...validations,
   ...errors,
+  ...custom
 };

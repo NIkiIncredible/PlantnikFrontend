@@ -1,7 +1,7 @@
 <template>
   <div class="navigation-wrapper shadow-lg border-b-3 border-b-primary">
     <div class="navigation container mx-auto pt-3">
-      <div class="navigation-upper columns-3">
+      <div class="navigation-upper columns-2 md:columns-3">
         <div class="nav-upper-col navigation-logo-container h-[40px]">
           <NuxtLinkLocale
               to="/"
@@ -11,17 +11,20 @@
           </NuxtLinkLocale>
         </div>
 
-        <div class="nav-upper-col m-auto navigation-search">
+        <!-- Search field -->
+        <div class="nav-upper-col m-auto navigation-search hidden md:block">
           <Search class="m-auto"></Search>
         </div>
 
+
+        <!-- Actions -->
         <div class="nav-upper-col navigation-actions flex justify-end items-center gap-5">
 
           <!-- Wishlist -->
           <div class="flex navigation-actions-item">
             <NuxtLinkLocale
                 class="group -m-2 p-2 flex items-center relative text-center
-                hover:text-primary hover:cursor-pointer"
+                hover:text-primary hover:cursor-pointer overflow-hidden"
                 aria-label="wishlist"
                 data-testid="wishlist-button"
                 :to="formatLink(`/wishlist`)"
@@ -40,10 +43,11 @@
 
           <!-- User -->
           <div class="navigation-actions-item relative">
-            <DropdownMenu>
-              <DropdownMenuTrigger class="-m-2 p-2 flex items-center h-full
-              hover:text-primary hover:cursor-pointer">
-                <User/>
+            <DropdownMenu class="relative">
+              <DropdownMenuTrigger  as-child>
+                <div class="flex items-center h-full hover:text-primary hover:cursor-pointer relative">
+                  <User :size="24"/>
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -86,23 +90,8 @@
                 </button>
               </SheetTrigger>
 
-              <SheetContent>
-                <SheetHeader>
-                  <!-- TODO: change to translation -->
-                  <SheetTitle>Warenkorb</SheetTitle>
-                  <SheetDescription>
-                    Make changes to your profile here. Click save when you're done.
-                  </SheetDescription>
-                </SheetHeader>
+              <PlnkSheetCart/>
 
-                <SheetFooter>
-                  <SheetClose as-child>
-                    <Button class="hover:cursor-pointer" size="lg" type="submit">
-                      <ShoppingBag class="group-hover:animate-bounce"/> Zur Kasse
-                    </Button>
-                  </SheetClose>
-                </SheetFooter>
-              </SheetContent>
             </Sheet>
           </div>
 
@@ -130,6 +119,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import {Heart, ShoppingBasket, User, ShoppingBag} from "lucide-vue-next";
+import {getTranslatedProperty} from "@shopware/helpers";
 
 const {count} = useCart();
 const {count: wishlistCount} = useWishlist();
@@ -139,6 +129,7 @@ const {locale} = useI18n();
 const localePath = useLocalePath();
 const {formatLink} = useInternationalization(localePath);
 const {getFormattedPrice} = usePrice();
+const {cart} = useCart();
 
 
 </script>

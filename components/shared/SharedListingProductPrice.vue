@@ -13,7 +13,6 @@ const { unitPrice, displayFromVariants, displayFrom, isListPrice, price } =
 <template>
   <div :id="product.id">
 
-    <!-- TODO: idk what this should do -->
     <SharedPrice
       v-if="displayFromVariants"
       class="text-lg font-semibold text-secondary-900 basis-2/6 justify-start"
@@ -31,7 +30,7 @@ const { unitPrice, displayFromVariants, displayFrom, isListPrice, price } =
     </SharedPrice>
 
 
-    <template v-if="isListPrice">
+    <template v-else-if="isListPrice">
       <SharedPrice
           class="text-lg font-semibold text-secondary-900 basis-2/6 justify-start"
           :value="price?.listPrice?.price"

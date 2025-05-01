@@ -4,6 +4,14 @@ import {defineOrganization} from 'nuxt-schema-org/schema'
 
 export default defineNuxtConfig({
     extends: ["@shopware/composables/nuxt-layer", "@shopware/cms-base-layer"],
+    vite: {
+        plugins: [
+            tailwindcss(),
+        ],
+    },
+    css: [
+        "~/assets/css/style.css"
+    ],
 
     //USELESS???
     shopware: {
@@ -100,11 +108,6 @@ export default defineNuxtConfig({
         compressPublicAssets: true,
     },
 
-    css: [
-        "~/assets/css/tailwind.css",
-        "~/assets/css/fonts.css"
-    ],
-
     router: {
         options: {
             linkActiveClass: "link-active",
@@ -131,18 +134,15 @@ export default defineNuxtConfig({
             },
         ],
     },
-    vite: {
-        plugins: [
-            tailwindcss(),
-        ],
-    },
+
     shadcn: {
         prefix: '',
         componentDir: './components/ui'
     },
     colorMode: {
-        classSuffix: 'dd'
+        classSuffix: ''
     },
+
     schemaOrg: {
         identity: defineOrganization({
             '@type': ['Organization', 'Store', 'OnlineStore'],

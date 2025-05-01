@@ -77,71 +77,108 @@ onMounted(async () => {
     v-if="product"
     class="cms-block-product-description-reviews flex flex-wrap"
   >
+
     <div class="w-full">
-      <ul
-        class="flex flex-wrap text-sm font-medium list-none text-center text-secondary-500 border-b border-secondary-200 dark:border-secondary-500 dark:text-secondary-400"
-      >
-        <li class="mr-2 text-center">
-          <a
-            class="font-bold uppercase px-5 py-3 block leading-normal cursor-pointer"
-            :class="[
+      <Tabs default-value="1">
+        <TabsList class="grid grid-cols-2">
+          <TabsTrigger value="1">
+            {{ translations.product.description }}
+          </TabsTrigger>
+          <TabsTrigger value="2">
+            {{ translations.product.reviews }} ({{ reviews.length }})
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="1">
+          <p class="text-xl font-bold mt-3">
+            {{ getProductName({ product }) }}
+          </p>
+          <!-- eslint-disable vue/no-v-html -->
+          <div class="mt-2 text-styled" v-html="description"></div>
+        </TabsContent>
+        <TabsContent value="password">
+          <ProductReviews :product="product" :reviews="reviews" />
+          <ClientOnly>
+            <ProductReviewsForm
+                v-if="isLoggedIn && !reviewAdded"
+                :product-id="product.id"
+                @success="handleReviewAdded"
+            />
+          </ClientOnly>
+          <div v-if="reviewAdded">
+            {{ translations.product.messages.reviewAdded }}
+          </div>
+        </TabsContent>
+      </Tabs>
+
+
+      <!-- TODO: old / remove -->
+      <div class="hidden">
+        <ul
+            class="flex flex-wrap text-sm font-medium list-none text-center text-secondary-500 border-b border-secondary-200 dark:border-secondary-500 dark:text-secondary-400"
+        >
+          <li class="mr-2 text-center">
+            <a
+                class="font-bold uppercase px-5 py-3 block leading-normal cursor-pointer"
+                :class="[
               currentTab !== 1
                 ? 'text-secondary-500 bg-white'
-                : 'text-white bg-secondary-500',
+                : 'text-primary bg-secondary-500',
             ]"
-            @click="() => toggleTabs(1)"
-          >
-            <i class="fas fa-space-shuttle text-base mr-1" />
-            {{ translations.product.description }}
-          </a>
-        </li>
-        <li class="mr-2 text-center">
-          <a
-            class="font-bold uppercase px-5 py-3 block leading-normal cursor-pointer"
-            :class="[
+                @click="() => toggleTabs(1)"
+            >
+              <i class="fas fa-space-shuttle text-base mr-1" />
+              {{ translations.product.description }}
+            </a>
+          </li>
+          <li class="mr-2 text-center">
+            <a
+                class="font-bold uppercase px-5 py-3 block leading-normal cursor-pointer"
+                :class="[
               currentTab !== 2
                 ? 'text-secondary-500 bg-white'
                 : 'text-white bg-secondary-500',
             ]"
-            data-testid="product-reviews-tab"
-            @click="() => toggleTabs(2)"
-          >
-            <i class="fas fa-cog text-base mr-1" />
-            {{ translations.product.reviews }} ({{ reviews.length }})
-          </a>
-        </li>
-      </ul>
-      <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
-        <div class="px-4 py-5 flex-auto">
-          <div class="tab-content tab-space">
-            <div
-              :class="[
+                data-testid="product-reviews-tab"
+                @click="() => toggleTabs(2)"
+            >
+              <i class="fas fa-cog text-base mr-1" />
+              {{ translations.product.reviews }} ({{ reviews.length }})
+            </a>
+          </li>
+        </ul>
+        <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
+          <div class="px-4 py-5 flex-auto">
+            <div class="tab-content tab-space">
+              <div
+                  :class="[
                 'cms-block-product-description-reviews__description',
                 currentTab !== 1 ? 'hidden' : 'block',
               ]"
-            >
-              <p class="text-xl font-bold mt-3">
-                {{ getProductName({ product }) }}
-              </p>
-              <!-- eslint-disable vue/no-v-html -->
-              <div class="mt-2" v-html="description"></div>
-            </div>
-            <div
-              :class="[
+              >
+                <p class="text-xl font-bold mt-3">
+                  {{ getProductName({ product }) }}
+                </p>
+                <!-- eslint-disable vue/no-v-html -->
+                <div class="mt-2" v-html="description"></div>
+              </div>
+              <div
+                  :class="[
                 'cms-block-product-description-reviews__reviews',
                 currentTab !== 2 ? 'hidden' : 'block',
               ]"
-            >
-              <ProductReviews :product="product" :reviews="reviews" />
-              <ClientOnly>
-                <ProductReviewsForm
-                  v-if="isLoggedIn && !reviewAdded"
-                  :product-id="product.id"
-                  @success="handleReviewAdded"
-                />
-              </ClientOnly>
-              <div v-if="reviewAdded">
-                {{ translations.product.messages.reviewAdded }}
+              >
+                <ProductReviews :product="product" :reviews="reviews" />
+                <ClientOnly>
+                  <ProductReviewsForm
+                      v-if="isLoggedIn && !reviewAdded"
+                      :product-id="product.id"
+                      @success="handleReviewAdded"
+                  />
+                </ClientOnly>
+                <div v-if="reviewAdded">
+                  {{ translations.product.messages.reviewAdded }}
+                </div>
               </div>
             </div>
           </div>

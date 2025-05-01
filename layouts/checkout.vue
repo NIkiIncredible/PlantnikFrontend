@@ -7,7 +7,7 @@ defineOptions({
   <div>
     <LayoutCheckoutHeader />
     <LayoutNotifications />
-    <main class="max-w-screen-xl mx-auto">
+    <main class="container mx-auto px-4 sm:px-6">
       <slot />
     </main>
   </div>

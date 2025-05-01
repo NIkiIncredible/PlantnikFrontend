@@ -26,7 +26,7 @@ const props = withDefaults(
       autoplaySpeed: 3000,
     },
 );
-console.log(props);
+// console.log(props);
 
 const {getConfigValue} = useCmsElementConfig({
   config: props.config,

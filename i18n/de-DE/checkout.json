@@ -25,7 +25,8 @@
     "linkShippingCart": "Zum Warenkorb gehen",
     "checkStatus": "Sie können nun den Bestellstatus in Ihrem Konto überprüfen. Vielen Dank!",
     "unpaidStatus": "Leider konnte Ihre Bestellung nicht bezahlt werden. Sie können es erneut versuchen oder uns kontaktieren.",
-    "checkOrderDetails": "Bestelldetails überprüfen",
+    "checkOrderDetailsLabel": "Bestelldetails überprüfen",
+    "checkOrderDetails": "Schaue dir deine Bestellung nochmal on ob alles korrekt ist",
     "loggedInAs": "Sie sind angemeldet als",
     "or": "oder",
     "yourOrder": "Ihre Bestellung",
@@ -47,7 +48,8 @@
     "personalInformationInfo": "Geben Sie eine permanente Adresse an, an der Sie Post erhalten können.",
     "totalLabel": "Gesamt",
     "termsAdnConditions": "Allgemeine Geschäftsbedingungen",
-    "termsAdnConditionsLabel": "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert.",
+    "termsAdnConditionsLabel": "AGB akzeptieren",
+    "termsAdnConditionsDescription": "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert.",
     "digitalTerms": "Ich möchte sofortigen Zugriff auf den digitalen Inhalt und ich erkenne an, dass ich damit mein Recht auf Widerruf verzichte.",
     "promoCode": {
       "label": "Angewendete Promo-Codes",
@@ -62,7 +64,27 @@
       "paymentProcessInfo": "Sie werden in 5 Sekunden zum Zahlungsgateway weitergeleitet."
     },
     "messages": {
-      "checkoutSignInSuccess": "Vielen Dank für Ihre Anmeldung! Sie erhalten in Kürze eine Bestätigungs-E-Mail. Klicken Sie auf den Link darin, um die Anmeldung abzuschließen."
+      "checkoutSignInSuccess": "Vielen Dank für Ihre Anmeldung! Sie erhalten in Kürze eine Bestätigungs-E-Mail. Klicken Sie auf den Link darin, um die Anmeldung abzuschließen.",
+      "checkoutNotFoundLabel": "Komisch...",
+      "checkoutNotFound": "Wir konnten keine {0} finden."
+    },
+    "steps": {
+      "address": {
+        "label": "Adresse",
+        "info": "Füge hier deine Adresse ein"
+      },
+      "shipping": {
+        "label": "Versand",
+        "info": "Bevorzugte Versandart wählen"
+      },
+      "payment": {
+        "label": "Zahlung",
+        "info": "Zahlungsinfos hinzufügen"
+      },
+      "checkout": {
+        "label": "Überprüfen",
+        "info": "Bestellung bestätigen"
+      }
     }
   }
 }

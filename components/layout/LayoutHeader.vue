@@ -65,7 +65,8 @@ onUnmounted(() => {
 </template>
 
 <style>
-@reference "~/assets/css/tailwind.css";
+@import "@/assets/css/tailwind.css";
+
 header {
   @apply top-0 left-0 right-0 z-50;
   transition: transform 0.1s ease-out;

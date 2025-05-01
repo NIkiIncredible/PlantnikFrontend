@@ -4,8 +4,8 @@ const { formatLink } = useInternationalization(localePath);
 </script>
 
 <template>
-  <nav class="relative bg-white">
-    <div class="mx-auto px-4 sm:px-6">
+  <nav class="relative bg-card">
+    <div class="mx-auto container px-4 sm:px-6">
       <div
         class="flex justify-between items-center border-b-2 border-secondary-100 py-6 md:justify-start md:space-x-10"
       >

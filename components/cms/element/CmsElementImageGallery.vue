@@ -3,7 +3,9 @@ import type {CmsElementImageGallery} from "@shopware/composables";
 import {computed, onMounted, ref, useTemplateRef} from "vue";
 import {useCmsElementConfig} from "#imports";
 import {getSmallestThumbnailUrl, getSrcSetForMedia, getTranslatedProperty} from "@shopware/helpers";
+import {Info} from "lucide-vue-next"
 
+const {t} = useI18n();
 const props = withDefaults(
     defineProps<{
       content: CmsElementImageGallery;
@@ -135,21 +137,59 @@ function next() {
   }
   move("next");
 }
+
+const zoomedNode = ref<HTMLElement | null>(null);
+const zoomImage = (event: MouseEvent) => {
+  const target = event.currentTarget as HTMLElement;
+  const appElement = document.querySelector("body");
+
+  if (appElement) {
+    zoomedNode.value = appElement.appendChild(target.cloneNode(true)) as HTMLElement;
+    zoomedNode.value.classList.toggle("zoomed");
+
+    const removeZoom = () => {
+      if (zoomedNode.value) {
+        zoomedNode.value.remove();
+        zoomedNode.value.removeEventListener('click', removeZoom);
+        zoomedNode.value = null;
+      }
+    };
+
+    zoomedNode.value.addEventListener('click', removeZoom);
+  }
+};
 </script>
 
 <template>
   <div class="cms-element-image-gallery">
     <div class="grid md:grid-cols-2 gap-5">
       <template v-if="isLoading">
-        <div :class="'aspect-square loader w-full h-full image-' + n" v-for="n in mediaGallery.length">pups</div>
+        <div :class="'aspect-square loader w-full h-full image-' + n" v-for="n in mediaGallery.length"></div>
       </template>
       <template v-else>
         <div v-for="(image, index) of mediaGallery"
-             :class="' aspect-square gallery-image-wrapper h-full w-full  image-' + (index+1)">
+             :class="'relative aspect-square gallery-image-wrapper h-full w-full  image-' + (index+1) + (mediaGallery.length > 2 ? '' : '-small')">
           <img :src="getSmallestThumbnailUrl(image.media)"
                :srcset="getSrcSetForMedia(image.media)"
                :alt="getTranslatedProperty(image.media, 'alt')"
-               class="rounded-md">
+               class="rounded-md w-full" @click="zoomImage">
+
+          <!-- Custom Feature: Plant Information -->
+          <div class="absolute top-1 right-1">
+            <Popover v-if="image.media.customFields?.hasOwnProperty('custom_plantinformation_label')">
+              <PopoverTrigger>
+                <div class="p-1 bg-muted rounded-full cursor-help">
+                  <Info :size="14" />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent class="text-sm">
+                <span>
+                  {{t('custom.media.plantLabel')}}
+                </span>
+                {{ image.media.customFields['custom_plantinformation_label'] }}
+              </PopoverContent>
+            </Popover>
+          </div>
 
           <!--          <CmsElementImage-->
           <!--              :key="image.media.url"-->
@@ -270,6 +310,30 @@ function next() {
 
 .gallery-image {
   object-fit: cover;
+}
+
+img.zoomed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9);
+  @apply object-contain;
+}
+
+.image-1-small {
+  grid-area: 1 / 1 / 3 / 2;
+  & :deep(img) {
+    @apply object-cover h-full;
+  }
+}
+.image-2-small {
+  grid-area: 1 / 2 / 3 / 3;
+  & :deep(img) {
+    @apply object-cover h-full;
+  }
 }
 
 .image-1 {

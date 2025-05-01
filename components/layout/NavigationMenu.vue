@@ -22,16 +22,14 @@
                     custom
                 >
                   <NavigationMenuLink
-                      :active="isActive"
-                      :href @click="navigate"
+                      :active="isActive" @click="navigate"
                       as-child
                   >
-                    <a :href
-                       class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                    <div class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                       <div class="text-sm font-medium leading-none">{{ childItem.translated.name }}</div>
                       <p class="line-clamp-2 text-sm leading-snug text-muted-foreground"
                          v-if="childItem.translated.description" v-html="childItem.translated.description"></p>
-                    </a>
+                    </div>
                   </NavigationMenuLink>
                 </NuxtLinkLocale>
               </li>
@@ -86,7 +84,7 @@ const { formatLink } = useInternationalization(localePath);
 </script>
 
 <style scoped>
-@reference "~/assets/css/tailwind.css";
+@import "~/assets/css/tailwind.css";
 
 :deep(.nav-item) {
   @apply text-base font-medium leading-none;

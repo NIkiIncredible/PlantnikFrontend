@@ -10,6 +10,7 @@ The components are grouped in specific directories depending on an usage within 
 |  ├─ checkout/     /* cart items, cart overview */
 |  ├─ account/      /* order history, account settings */
 |  ├─ shared/       /* modals, ... */
+|  ├─ ui/           /* ui elements */
 |  ├─ ...
 ```
 

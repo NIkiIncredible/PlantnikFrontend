@@ -63,6 +63,24 @@
     },
     "messages": {
       "checkoutSignInSuccess": "Thank you for signing up! You will receive a confirmation email shortly. Click on the link in it to complete the sign-up."
+    },
+    "steps": {
+      "address": {
+        "label": "Address",
+        "info": "Add your address here"
+      },
+      "shipping": {
+        "label": "Shipping",
+        "info": "Set your preferred shipping method"
+      },
+      "payment": {
+        "label": "Payment",
+        "info": "Add payment information"
+      },
+      "checkout": {
+        "label": "Checkout",
+        "info": "Confirm your order"
+      }
     }
   }
 }

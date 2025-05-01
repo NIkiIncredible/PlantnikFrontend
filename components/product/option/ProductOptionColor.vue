@@ -1,26 +1,31 @@
 <template>
-  <div :class="{'product-option-color': true, 'ring-primary': isActive}"
+  <div class="rounded-md m-1 ring-2 ring-input bg-center hover:cursor-pointer hover:ring-accent-foreground"
+       :class="{ 'product-option-color': true,'ring-primary': isActive,'h-5 w-5': size === 'sm','h-11 w-11': size === 'lg'}"
        :style="'background:' + (option.media ? 'url(' + option.media?.url + ') center' : option.colorHexCode)"
+       :aria-label="option.name"
+       :title="option.name"
   >
   </div>
 </template>
 
-<script setup lang=ts>
-//import type {components} from "~/api-types/storeApiTypes";
-//Types components["schemas"]["PropertyGroupOption"]
-const props = defineProps<{
-  option: any,
-  isActive: boolean,
-}>()
-</script>
-
-<style scoped>
-@reference '@/assets/css/tailwind.css';
-
-.product-option-color {
-  @apply h-11 w-11 rounded-md m-1 ring-offset-1 ring-border ring-2 bg-center;
-  &:hover {
-    @apply cursor-pointer ring-accent-foreground
+<script setup lang="ts">
+interface Option {
+  media?: {
+    url: string;
   }
+  colorHexCode?: string;
+  name: string;
 }
-</style>
+
+interface Props {
+  option: Option;
+  isActive?: boolean;
+  size?: "sm" | "lg";
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isActive: false,
+  size: "lg"
+})
+
+</script>

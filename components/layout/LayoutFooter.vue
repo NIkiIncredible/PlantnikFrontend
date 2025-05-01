@@ -5,7 +5,9 @@ import {Sun, Moon} from "lucide-vue-next"
 const {navigationElements} = useNavigation({type: "footer-navigation"});
 const localePath = useLocalePath();
 const {formatLink} = useInternationalization(localePath);
-const colorMode = useColorMode()
+const colorMode = useColorMode();
+const context = useSessionContext();
+const {getPaymentMethods} = useCheckout();
 
 const gridColumns = computed<number>(() =>
     navigationElements.value
@@ -13,17 +15,20 @@ const gridColumns = computed<number>(() =>
         : 2,
 );
 
-import {Instagram, Facebook} from "lucide-vue-next";
+const {data: pMethods, status: pMethodsStatus} = useAsyncData("paymentMethods", async () => {
+  return (await getPaymentMethods()).value;
+})
+
 </script>
 
 <template>
-  <footer class="p-4 sm:p-6 mt-10 md:mt-20 border-t-2 border-border bg-">
+  <footer class="p-4 sm:p-6 mt-10 md:mt-20 border-t-2 border-border bg-card">
     <div class="mx-auto container">
-      <div class="md:flex md:justify-between">
+      <div class="sm:flex sm:justify-between">
         <div class="mb-6 md:mb-0">
           <NuxtLinkLocale
               to="/"
-              class="logo-container-inner h-full w-fit block"
+              class="logo-container-inner h-full w-fit block mx-auto"
           >
             <img class="min-h-full max-h-full" src="/assets/images/logo/plantnik.svg" alt="">
           </NuxtLinkLocale>
@@ -31,7 +36,9 @@ import {Instagram, Facebook} from "lucide-vue-next";
         </div>
 
         <!-- `grid grid-cols-2 gap-8 md:gap-6 md:grid-cols-${gridColumns}` -->
-        <div class="flex gap-12 flex-col md:flex-row">
+        <!--        flex-col md:flex-row flex-->
+        <div class="grid lg:flex gap-12 sm:grid-cols-2 text-center sm:text-left">
+
           <div
               v-for="navigationElement in navigationElements"
               :key="navigationElement.id">
@@ -56,38 +63,59 @@ import {Instagram, Facebook} from "lucide-vue-next";
               </li>
             </ul>
           </div>
+
         </div>
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
       <div class="sm:flex sm:items-center sm:justify-between">
         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-          © 2025 Plantnik.
+          © {{
+            new Date().getFullYear()
+          }} {{ getTranslatedProperty(context.sessionContext.value?.salesChannel, "name") }}
         </span>
         <div class="flex gap-3 mt-4 sm:justify-center sm:mt-0">
-          <div>
-            <img src="/assets/images/payments/ApplePay.svg" alt="ApplePay" />
-          </div>
-          <div>
-            <img src="/assets/images/payments/GooglePay.svg" alt="GooglePay" />
-          </div>
-          <div>
-            <img src="/assets/images/payments/Maestro.svg" alt="Maestro" />
-          </div>
-          <div>
-            <img src="/assets/images/payments/Mastercard.svg" alt="Mastercard" />
-          </div>
-          <div>
-            <img src="/assets/images/payments/Visa.svg" alt="Visa" />
-          </div>
-          <div>
-            <img src="/assets/images/payments/PayPal.svg" alt="PayPal" />
-          </div>
-          <div>
-            <img src="/assets/images/payments/Sepa.svg" alt="Sepa" />
-          </div>
-          <div>
-            <img src="/assets/images/payments/Pia.svg" alt="Pay in Advanced" />
-          </div>
+          <ClientOnly>
+            <template v-if="pMethodsStatus == 'success'">
+              <div v-for="method in pMethods">
+                <img :src="method.media?.url"
+                     :alt="getTranslatedProperty(method, 'name') + ' Logo'"
+                     :aria-label="getTranslatedProperty(method, 'name') + ' Logo'"
+                     :title="getTranslatedProperty(method, 'name') + ' Logo'"/>
+              </div>
+            </template>
+            <template v-else>
+              <div v-for="n in 5">
+                <div class="w-[35px] h-[24px] loader rounded"></div>
+              </div>
+            </template>
+
+            <template #fallback>
+              <div v-for="n in 5">
+                <div class="w-[35px] h-[24px] loader rounded"></div>
+              </div>
+            </template>
+          </ClientOnly>
+          <!--          <div>-->
+          <!--            <img src="/assets/images/payments/GooglePay.svg" alt="GooglePay" />-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            <img src="/assets/images/payments/Maestro.svg" alt="Maestro" />-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            <img src="/assets/images/payments/Mastercard.svg" alt="Mastercard" />-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            <img src="/assets/images/payments/Visa.svg" alt="Visa" />-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            <img src="/assets/images/payments/PayPal.svg" alt="PayPal" />-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            <img src="/assets/images/payments/Sepa.svg" alt="Sepa" />-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            <img src="/assets/images/payments/Pia.svg" alt="Pay in Advanced" />-->
+          <!--          </div>-->
         </div>
       </div>
     </div>

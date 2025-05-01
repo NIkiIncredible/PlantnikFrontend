@@ -1,17 +1,17 @@
 <script setup lang="ts" generic="ListingFilter extends { code: string }">
-import type { Schemas } from "#shopware";
+import type {Schemas} from "#shopware";
 import ListingFiltersPrice from "./ListingFiltersPrice.vue";
 import ListingFiltersProperties from "./ListingFiltersProperties.vue";
 import ListingFiltersRating from "./ListingFiltersRating.vue";
 import ListingFiltersShippingFree from "./ListingFiltersShippingFree.vue";
 
 const emit =
-  defineEmits<
-    (
-      e: "selectFilterValue",
-      { code, value }: { code: string; value: string },
-    ) => void
-  >();
+    defineEmits<
+        (
+            e: "selectFilterValue",
+            {code, value}: { code: string; value: string },
+        ) => void
+    >();
 
 const props = defineProps<{
   filter: ListingFilter;
@@ -33,12 +33,10 @@ const cmsMap = () => {
 };
 </script>
 <template>
-  <div>
-    <component
+  <component
       :is="cmsMap()"
       :filter="filter"
       :selected-filters="selectedFilters"
       @select-value="emit('selectFilterValue', $event)"
-    />
-  </div>
+  />
 </template>
