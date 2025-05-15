@@ -123,6 +123,11 @@ h2 {
     --animate-accordion-up: slideUp 0.3s ease-out;
 }
 
+@theme {
+    /* define xs = 20rem == 320px */
+    --maxWidth-xs: 20rem;
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;
