@@ -98,7 +98,7 @@ const emitUpdateActiveClass = (
 </template>
 
 <style scoped>
-nav .link-active {
-  @apply text-secondary-900 bg-primary bg-opacity-10 rounded-lg;
-}
+//nav .link-active {
+//  @apply text-secondary-900 bg-primary bg-opacity-10 rounded-lg;
+//}
 </style>
