@@ -30,7 +30,7 @@ const {data: pMethods, status: pMethodsStatus} = useAsyncData("paymentMethods", 
               to="/"
               class="logo-container-inner h-full w-fit block mx-auto"
           >
-            <img class="min-h-full max-h-full" src="/assets/images/logo/plantnik.svg" alt="">
+            <img class="min-h-full h-[2.25rem]" src="/assets/images/logo/plantnik.svg" alt="">
           </NuxtLinkLocale>
 
         </div>

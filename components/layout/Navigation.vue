@@ -5,7 +5,7 @@
         <div class="nav-upper-col navigation-logo-container h-[40px]">
           <NuxtLinkLocale
               to="/"
-              class="logo-container-inner h-full w-fit block"
+              class="logo-container-inner h-[2.25rem] w-fit block"
           >
             <img class="min-h-full max-h-full" src="/assets/images/logo/plantnik.svg" alt="">
           </NuxtLinkLocale>
